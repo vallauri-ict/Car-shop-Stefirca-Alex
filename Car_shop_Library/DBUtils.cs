@@ -35,7 +35,7 @@ namespace Car_shop_Library
                                 matricolazione DATE, usato VARCHAR(255), kmZero VARCHAR(255),
                                 kmFatti INT, prezzo MONEY,";
                         if (tableName == "Auto") command += " numAirbag INT,";
-                        else command += " marcaSella VARCHAR(255),";
+                        else command += " Sella VARCHAR(255),";
                         command += " img VARCHAR(255))";
                         cmd.CommandText = command;
                         cmd.ExecuteNonQuery();
@@ -221,7 +221,7 @@ namespace Car_shop_Library
             }
         }
 
-        public string takeActualValue(string parameter, string tableName, int id)
+        public string ActualValue(string parameter, string tableName, int id)
         {
             if (connectStr != null)
             {

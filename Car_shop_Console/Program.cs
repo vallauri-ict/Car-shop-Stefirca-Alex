@@ -60,7 +60,7 @@ namespace Car_shop_Console
                         table = veicolo();
                         if (table != "x")
                         {
-                            id = takeId(table);
+                            id = Id(table);
                             takeParameters();
                             DBUtils.Update(table, id, marca, modello, colore, cilindrata, potenza, matricolazione, usato, km0, kmFatti, prezzo, numAirbag, sella);
                             id = 0;
@@ -72,7 +72,7 @@ namespace Car_shop_Console
                         table = veicolo();
                         if (table != "x")
                         {
-                            id = takeId(table);
+                            id = Id(table);
                             DBUtils.Delete(table, id);
                             id = 0;
                             Console.WriteLine("\nElemento rimosso");
@@ -211,7 +211,7 @@ namespace Car_shop_Console
 
             if (answer == "S" || answer == "s") return true;
             else if (answer == "N" || answer == "n") return false;
-            else if (DBUtils.takeActualValue(parameter, table, id) == "Si") return true;
+            else if (DBUtils.ActualValue(parameter, table, id) == "Si") return true;
             else return false;
         }
 
@@ -238,7 +238,7 @@ namespace Car_shop_Console
             return verifier;
         }
 
-        private static int takeId(string table)
+        private static int Id(string table)
         {
             int maxId = DBUtils.ItemsCounter(table);
             int id;

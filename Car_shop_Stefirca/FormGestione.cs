@@ -17,7 +17,6 @@ namespace Car_shop_Stefirca
     {
         List<Control> controls;
         string veicolo;
-        string fileName = "default.png";
         int selectedIndex;
         FormMain fm;
         private ErrorProviderUtilities erProv = new ErrorProviderUtilities();
@@ -57,7 +56,6 @@ namespace Car_shop_Stefirca
             chkKm0.Checked = formMain.ListaVeicoli[selectedIndex].Km0;
             nKmFatti.Value = formMain.ListaVeicoli[selectedIndex].KmFatti;
             nPrezzo.Value = Convert.ToDecimal(formMain.ListaVeicoli[selectedIndex].Prezzo);
-            fileName = formMain.ListaVeicoli[selectedIndex].Img;
             if (formMain.ListaVeicoli[selectedIndex] is Moto)
             {
                 Tipo_veicolo.SelectedIndex = 1;
@@ -84,7 +82,7 @@ namespace Car_shop_Stefirca
                                                            Convert.ToDouble(nPotenza.Value),
                                                            DataMatricolazione.Value, chkUsato.Checked,
                                                            chkKm0.Checked, Convert.ToInt32(nKmFatti.Value),
-                                                           Convert.ToInt32(nPrezzo.Value), fileName,
+                                                           Convert.ToInt32(nPrezzo.Value), "auto.png",
                                                            Convert.ToInt32(nAirbag.Value)));
                     }
                     else
@@ -94,7 +92,7 @@ namespace Car_shop_Stefirca
                                                            Convert.ToDouble(nPotenza.Value),
                                                            DataMatricolazione.Value, chkUsato.Checked,
                                                            chkKm0.Checked, Convert.ToInt32(nKmFatti.Value),
-                                                           Convert.ToInt32(nPrezzo.Value), fileName,
+                                                           Convert.ToInt32(nPrezzo.Value), "moto.png",
                                                            txtSella.Text));
                     }
                     Close();
@@ -115,7 +113,6 @@ namespace Car_shop_Stefirca
                     fm.ListaVeicoli[selectedIndex].Km0 = chkKm0.Checked;
                     fm.ListaVeicoli[selectedIndex].KmFatti = Convert.ToInt32(nKmFatti.Value);
                     fm.ListaVeicoli[selectedIndex].Prezzo = Convert.ToInt32(nPrezzo.Value);
-                    fm.ListaVeicoli[selectedIndex].Img = fileName;
                     if (fm.ListaVeicoli[selectedIndex] is Moto)
                         (fm.ListaVeicoli[selectedIndex] as Moto).Sella = txtSella.Text;
                     else
