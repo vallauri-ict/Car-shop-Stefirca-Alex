@@ -4,12 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -143,31 +137,10 @@ namespace Car_shop_Stefirca
                 {
                     string filepath = generalUtils.OutputFileName(FolderBrowserDialog.SelectedPath, "xlsx");
 
-                    List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
-                    for (int i = 0; i < ListaVeicoli.Count; i++)
-                    {
-                        string usato = ListaVeicoli[i].Usato ? "Si" : "No";
-                        string km0 = ListaVeicoli[i].Km0 ? "Si" : "No";
-                        Dictionary<string, string> excelContent = new Dictionary<string, string>();
-
-                        excelContent.Add("Marca", ListaVeicoli[i].Marca);
-                        excelContent.Add("Modello", ListaVeicoli[i].Modello);
-                        excelContent.Add("Colore", ListaVeicoli[i].Colore);
-                        excelContent.Add("Cilindrata", ListaVeicoli[i].Cilindrata.ToString());
-                        excelContent.Add("Potenza", ListaVeicoli[i].Potenza.ToString() + " kw");
-                        excelContent.Add("matricolazione", ListaVeicoli[i].Matricolazione.ToShortDateString());
-                        excelContent.Add("Usato", usato);
-                        excelContent.Add("Km Zero", km0);
-                        excelContent.Add("KmFatti", ListaVeicoli[i].KmFatti.ToString());
-                        excelContent.Add("Prezzo", ListaVeicoli[i].Prezzo.ToString() + " €");
-                        if ((ListaVeicoli[i] is Auto)) excelContent.Add("Numero Airbag/Marca sella", (ListaVeicoli[i] as Auto).NumAirbag.ToString());
-                        else excelContent.Add("Numero Airbag/sella", (ListaVeicoli[i] as Moto).Sella);
-                        list.Add(excelContent);
-                    }
                     using (SpreadsheetDocument package = SpreadsheetDocument.Create(filepath, SpreadsheetDocumentType.Workbook))
                     {
 
-                        excellUtils.CreatePartsForExcel(package, list);
+                        excellUtils.CreatePartsForExcel(package, ListaVeicoli);
 
                         ProcedureCompleted("Il documento è pronto!", filepath);
                     }

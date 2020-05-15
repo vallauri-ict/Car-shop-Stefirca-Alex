@@ -13,7 +13,7 @@ namespace Car_shop_Library
     {
         public Excell() { }
 
-        public void CreatePartsForExcel(SpreadsheetDocument document, List<Dictionary<string, string>> data)
+        public void CreatePartsForExcel(SpreadsheetDocument document, SerializableBindingList<Veicolo> data)
         {
             SheetData partSheetData = GenerateSheetdataForDetails(data);
 
@@ -181,33 +181,56 @@ namespace Car_shop_Library
             workbookStylesPart1.Stylesheet = stylesheet1;
         }
 
-        private SheetData GenerateSheetdataForDetails(List<Dictionary<string, string>> data)
+        private SheetData GenerateSheetdataForDetails(SerializableBindingList<Veicolo> data)
         {
             SheetData sheetData1 = new SheetData();
-            sheetData1.Append(CreateHeaderRowForExcel(data));
+            sheetData1.Append(CreateHeaderRowForExcel());
 
-            foreach (Dictionary<string, string> datas in data)
+            foreach (Veicolo testmodel in data)
             {
-                Row partsRows = GenerateRowForChildPartDetail(datas);
+                Row partsRows = GenerateRowForChildPartDetail(testmodel);
                 sheetData1.Append(partsRows);
             }
             return sheetData1;
         }
 
-        private Row CreateHeaderRowForExcel(List<Dictionary<string, string>> header)
+        private Row CreateHeaderRowForExcel()
         {
             Row workRow = new Row();
-            foreach (var key in header[0].Keys)
-                workRow.Append(CreateCell(key, 2U));
-
+            workRow.Append(CreateCell("Marca", 2U));
+            workRow.Append(CreateCell("Modello", 2U));
+            workRow.Append(CreateCell("Colore", 2U));
+            workRow.Append(CreateCell("Cilindrata", 2U));
+            workRow.Append(CreateCell("Potenza", 2U));
+            workRow.Append(CreateCell("Matricolazione", 2U));
+            workRow.Append(CreateCell("Usato", 2U));
+            workRow.Append(CreateCell("Km Zero", 2U));
+            workRow.Append(CreateCell("Km Fatti", 2U));
+            workRow.Append(CreateCell("Prezzo", 2U));
+            workRow.Append(CreateCell("numero Airbag/Marca sella", 2U));
             return workRow;
         }
 
-        private Row GenerateRowForChildPartDetail(Dictionary<string, string> datas)
+        private Row GenerateRowForChildPartDetail(Veicolo testmodel)
         {
             Row tRow = new Row();
-            foreach (string item in datas.Values)
-                tRow.Append(CreateCell(item));
+            string usato = "No";
+            string kmZero = "No";
+             
+            tRow.Append(CreateCell(testmodel.Marca));
+            tRow.Append(CreateCell(testmodel.Modello));
+            tRow.Append(CreateCell(testmodel.Colore));
+            tRow.Append(CreateCell(testmodel.Cilindrata.ToString()));
+            tRow.Append(CreateCell(testmodel.Potenza.ToString()+ " kw"));
+            tRow.Append(CreateCell(testmodel.Matricolazione.ToShortDateString()));
+            if (testmodel.Usato) usato = "Si";
+            tRow.Append(CreateCell(usato));
+            if (testmodel.Usato) kmZero = "Si";
+            tRow.Append(CreateCell(kmZero));
+            tRow.Append(CreateCell(testmodel.KmFatti.ToString()));
+            tRow.Append(CreateCell(testmodel.Prezzo.ToString()));
+            if(testmodel is Auto) tRow.Append(CreateCell((testmodel as Auto).NumAirbag.ToString()));
+            else tRow.Append(CreateCell((testmodel as Moto).Sella));
 
             return tRow;
         }
@@ -243,5 +266,18 @@ namespace Car_shop_Library
                 return CellValues.String;
             }
         }
+    }
+
+    public class TestModel
+    {
+        public int TestId { get; set; }
+        public string TestName { get; set; }
+        public string TestDesc { get; set; }
+        public DateTime TestDate { get; set; }
+    }
+
+    public class TestModelList
+    {
+        public List<TestModel> testData { get; set; }
     }
 }

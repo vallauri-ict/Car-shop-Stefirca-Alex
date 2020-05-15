@@ -25,15 +25,15 @@ namespace Car_shop_Library
                     OleDbCommand cmd = new OleDbCommand();
                     cmd.Connection = con;
 
-                    // identity(1,1) auto-increment 
+                     
                     try
                     {
                         string command = $@"CREATE TABLE {tableName}(
                                 id INT identity(1,1) NOT NULL PRIMARY KEY,
                                 marca VARCHAR(255) NOT NULL, modello VARCHAR(255) NOT NULL,
-                                colore VARCHAR(255), cilindrata INT, potenzaKw INT,
-                                immatricolazione DATE, usato VARCHAR(255), kmZero VARCHAR(255),
-                                kmPercorsi INT, prezzo MONEY,";
+                                colore VARCHAR(255), cilindrata INT, potenza INT,
+                                matricolazione DATE, usato VARCHAR(255), kmZero VARCHAR(255),
+                                kmFatti INT, prezzo MONEY,";
                         if (tableName == "Auto") command += " numAirbag INT,";
                         else command += " marcaSella VARCHAR(255),";
                         command += " img VARCHAR(255))";
@@ -63,9 +63,9 @@ namespace Car_shop_Library
                     cmd.Connection = con;
                     string command = string.Empty;
                     if (tableName == "Auto")
-                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenza, matricolazione, usato, km0, kmFatti, prezzo, numAirbag, img) VALUES(@marca, @modello, @colore, @cilindrata, @potenza, @matricolazione, @usato, @km0, @kmFatti, @prezzo, @numAirbag, @img)";
+                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenza, matricolazione, usato, kmZero, kmFatti, prezzo, numAirbag, img) VALUES(@marca, @modello, @colore, @cilindrata, @potenza, @matricolazione, @usato, @km0, @kmFatti, @prezzo, @numAirbag, @img)";
                     else
-                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenza, matricolazione, usato, km0, kmFatti, prezzo, sella, img) VALUES(@marca, @modello, @colore, @cilindrata, @potenza, @matricolazione, @usato, @km0, @kmFatti, @prezzo, @sella, @img)";
+                        command = $"INSERT INTO {tableName}(marca, modello, colore, cilindrata, potenza, matricolazione, usato, kmZero, kmFatti, prezzo, sella, img) VALUES(@marca, @modello, @colore, @cilindrata, @potenza, @matricolazione, @usato, @km0, @kmFatti, @prezzo, @sella, @img)";
                     cmd.CommandText = command;
 
                     string isUsato = usato ? "Si" : "No";
@@ -129,7 +129,7 @@ namespace Car_shop_Library
             }
         }
 
-        public void Update(string tableName, int id, string marca, string modello, string colore, int cilindrata, double potenza, DateTime matriclazione, bool usato, bool km0, int kmFatti, double prezzo, int numAirbag, string sella, string img = "")
+        public void Update(string tableName, int id, string marca, string modello, string colore, int cilindrata, double potenza, DateTime matricolazione, bool usato, bool km0, int kmFatti, double prezzo, int numAirbag, string sella, string img = "")
         {
             if (connectStr != null)
             {
@@ -146,10 +146,10 @@ namespace Car_shop_Library
                     set += parametersControl(modello != "-1", " , modello=@modello");
                     set += parametersControl(colore != "-1", " , colore=@colore");
                     set += parametersControl(cilindrata != -1, " , cilindrata=@cilindrata");
-                    set += parametersControl(potenza != -1, " , potenzaKw=@potenza");
-                    set += parametersControl(matriclazione.ToString("dd/MM/yyyy") != "01/01/9999", " , matricolazione=@matricolazione");
+                    set += parametersControl(potenza != -1, " , potenza=@potenza");
+                    set += parametersControl(matricolazione.ToString("dd/MM/yyyy") != "01/01/9999", " , matricolazione=@matricolazione");
                     set += " , usato=@usato";
-                    set += " , km0=@km0";
+                    set += " , kmZero=@km0";
                     set += parametersControl(kmFatti != -1, " , kmFatti=@kmFatti");
                     set += parametersControl(prezzo != -1, " , prezzo=@prezzo");
                     if (tableName == "Auto")
@@ -175,7 +175,7 @@ namespace Car_shop_Library
                     if (command.Contains("@potenza"))
                         cmd.Parameters.Add("@potenza", OleDbType.Integer).Value = potenza;
                     if (command.Contains("@matriculation"))
-                        cmd.Parameters.Add(new OleDbParameter("@matriclazione", OleDbType.Date)).Value = matriclazione.ToShortDateString();
+                        cmd.Parameters.Add(new OleDbParameter("@matriclazione", OleDbType.Date)).Value = matricolazione.ToShortDateString();
                     if (command.Contains("@usato"))
                         cmd.Parameters.Add(new OleDbParameter("@usato", OleDbType.VarChar, 255)).Value = isUsato;
                     if (command.Contains("@isKm0"))
