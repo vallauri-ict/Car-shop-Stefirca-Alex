@@ -8,7 +8,7 @@ namespace Car_shop_Library
 {
     public class Auto : Veicolo
     {
-        public Auto() : base("Default", "Default", "Default", 0000, 00.0, DateTime.Now, false, false, 000000, 00000, "default.png")
+        public Auto() : base("Default", "Default", "Default", 0000, 00.0, DateTime.Now, false, false, 000000, 00000, "auto.png")
         {
             NumAirbag = 0;
         }

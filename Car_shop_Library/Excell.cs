@@ -204,7 +204,7 @@ namespace Car_shop_Library
             workRow.Append(CreateCell("Potenza", 2U));
             workRow.Append(CreateCell("Matricolazione", 2U));
             workRow.Append(CreateCell("Usato", 2U));
-            workRow.Append(CreateCell("Km Zero", 2U));
+            workRow.Append(CreateCell("Km 0", 2U));
             workRow.Append(CreateCell("Km Fatti", 2U));
             workRow.Append(CreateCell("Prezzo", 2U));
             workRow.Append(CreateCell("numero Airbag/Marca sella", 2U));
@@ -266,18 +266,5 @@ namespace Car_shop_Library
                 return CellValues.String;
             }
         }
-    }
-
-    public class TestModel
-    {
-        public int TestId { get; set; }
-        public string TestName { get; set; }
-        public string TestDesc { get; set; }
-        public DateTime TestDate { get; set; }
-    }
-
-    public class TestModelList
-    {
-        public List<TestModel> testData { get; set; }
     }
 }

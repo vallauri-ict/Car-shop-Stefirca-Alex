@@ -8,7 +8,7 @@ namespace Car_shop_Library
 {
     public class Moto : Veicolo
     {
-        public Moto() : base("Default", "Default", "Default", 000, 00.0, DateTime.Now, false, false, 000, 000, "default.png")
+        public Moto() : base("Default", "Default", "Default", 000, 00.0, DateTime.Now, false, false, 000, 000, "moto.png")
         {
             Sella = "Default";
         }
